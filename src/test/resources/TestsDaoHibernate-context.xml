@@ -39,9 +39,9 @@
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/bankiuttest" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+			value="jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/brochot6u_QualDevTest" />
+		<property name="username" value="brochot6u_appli" />
+		<property name="password" value="32304747" />
 		<!-- Nécessaire, sinon les test se font quand même -->
 		<property name="defaultAutoCommit" value="false" />
 	</bean>

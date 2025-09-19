@@ -46,9 +46,9 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 
-		<property name="url" value="jdbc:mysql://localhost:3306/bankiut?useSSL=false" />
-			<property name="username" value="root" />
-			<property name="password"  value="root" />
+		<property name="url" value="jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/brochot6u_QualDev" />
+			<property name="username" value="brochot6u_appli" />
+			<property name="password" value="32304747" />
 	</bean>
 
 	<!-- ============= Gestion des Transactions ============= -->
