@@ -61,12 +61,4 @@ public class PasswordHasher {
         }
     }
 
-    // Petit test rapide
-    public static void main(String[] args) {
-        String mdp = "monMotDePasse123";
-        String hash = hashPassword(mdp);
-        System.out.println("Hash : " + hash);
-        System.out.println("Vérification correcte ? " + verifyPassword(mdp, hash));
-        System.out.println("Vérification faux mot de passe ? " + verifyPassword("fauxMdp", hash));
-    }
 }
