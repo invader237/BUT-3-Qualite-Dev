@@ -45,4 +45,6 @@ Simply launch IntelliJ and open the project folder.
    - Add `Build artifact` and select `<your-war-name>:war exploded`.
 5. In the **Deployment** tab, add an artifact with `<your-war-name>:war`.
 
+> ℹ️ Note: In the Application context field, make sure to enter the name of your project without the .war extension or :war exploded suffix — just the plain project name.
+
 ✅ Your project is now ready to run directly from IntelliJ with Tomcat.
