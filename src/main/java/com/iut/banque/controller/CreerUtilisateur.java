@@ -1,5 +1,6 @@
 package com.iut.banque.controller;
 
+import com.iut.banque.cryptage.PasswordHasher;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -14,6 +15,7 @@ public class CreerUtilisateur extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	private BanqueFacade banque;
+	private String submit;
 	private String userId;
 	private String nom;
 	private String prenom;
@@ -24,6 +26,21 @@ public class CreerUtilisateur extends ActionSupport {
 	private String numClient;
 	private String message;
 	private String result;
+	private PasswordHasher passwordHasher;
+
+	/**
+	 * @return Submit value
+	 */
+	public String getSubmit() {
+		return submit;
+	}
+
+	/**
+	 * @param submit the submit value
+	 */
+	public void setSubmit(String submit) {
+		this.submit = submit;
+	}
 
 	/**
 	 * @return the userId
@@ -153,6 +170,7 @@ public class CreerUtilisateur extends ActionSupport {
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
+		this.passwordHasher = (PasswordHasher) context.getBean("passwordHasher");
 	}
 
 	/**
@@ -200,10 +218,11 @@ public class CreerUtilisateur extends ActionSupport {
 	 */
 	public String creationUtilisateur() {
 		try {
+			String hashPassword = passwordHasher.hashPassword(userPwd);
 			if (client) {
-				banque.createClient(userId, userPwd, nom, prenom, adresse, male, numClient);
+				banque.createClient(userId, hashPassword, nom, prenom, adresse, male, numClient);
 			} else {
-				banque.createManager(userId, userPwd, nom, prenom, adresse, male);
+				banque.createManager(userId, hashPassword, nom, prenom, adresse, male);
 			}
 			this.message = "Le nouvel utilisateur avec le user id '" + userId + "' a bien été crée.";
 			this.result = "SUCCESS";
