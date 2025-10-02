@@ -94,4 +94,7 @@
 		class="com.iut.banque.converter.AccountConverter" scope="singleton">
 		<constructor-arg ref="daoHibernate" />
 	</bean>
+
+	<!-- Injection de la Cryptographie -->
+	<bean id="passwordHasher" class="com.iut.banque.cryptage.PasswordHasher"/>
 </beans>

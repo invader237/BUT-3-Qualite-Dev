@@ -1,5 +1,7 @@
 package com.iut.banque.cryptage;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -7,6 +9,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
+@Component
 public class PasswordHasher {
 
     private static final int SALT_LENGTH = 16;       // 16 bytes = 128 bits
@@ -21,7 +24,7 @@ public class PasswordHasher {
      * Hash un mot de passe et retourne une chaîne contenant les itérations, le sel et le hash.
      * Format : iterations:salt:hash
      */
-    public static String hashPassword(String password) {
+    public String hashPassword(String password) {
         try {
             byte[] salt = new byte[SALT_LENGTH];
             random.nextBytes(salt);
@@ -38,7 +41,7 @@ public class PasswordHasher {
     /**
      * Vérifie si un mot de passe correspond au hash stocké.
      */
-    public static boolean verifyPassword(String password, String stored) {
+    public boolean verifyPassword(String password, String stored) {
         try {
             String[] parts = stored.split(":");
             int iterations = Integer.parseInt(parts[0]);
