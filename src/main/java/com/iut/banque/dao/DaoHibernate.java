@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.iut.banque.cryptage.PasswordHasher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +34,12 @@ import com.iut.banque.modele.Utilisateur;
 public class DaoHibernate implements IDao {
 
 	private SessionFactory sessionFactory;
+	private PasswordHasher passwordHasher;
 
 	public DaoHibernate() {
 		System.out.println("==================");
 		System.out.println("Création de la Dao");
+		this.passwordHasher = new PasswordHasher();
 	}
 
 	/**
@@ -203,7 +206,7 @@ public class DaoHibernate implements IDao {
 				if (user == null) {
 					return false;
 				}
-				return (userPwd.equals(user.getUserPwd()));
+				return (passwordHasher.verifyPassword(userPwd, user.getUserPwd())); //TODO verifier la hash
 			}
 		}
 	}

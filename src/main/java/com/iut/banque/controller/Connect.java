@@ -2,6 +2,7 @@ package com.iut.banque.controller;
 
 import java.util.Map;
 
+import com.iut.banque.cryptage.PasswordHasher;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -17,9 +18,10 @@ import com.iut.banque.modele.Utilisateur;
 public class Connect extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private String userCde;
-	private String userPwd;
+	private String userCde; // id utilisateur
+	private String userPwd; // mdp utilisateur
 	private BanqueFacade banque;
+	private PasswordHasher passwordHasher;
 
 	/**
 	 * Constructeur de la classe Connect
@@ -32,6 +34,7 @@ public class Connect extends ActionSupport {
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
+		this.passwordHasher = (PasswordHasher) context.getBean("passwordHasher");
 
 	}
 
@@ -52,7 +55,9 @@ public class Connect extends ActionSupport {
 
 		int loginResult;
 		try {
-			loginResult = banque.tryLogin(userCde, userPwd);
+			loginResult = banque.tryLogin(userCde, passwordHasher.hashPassword(userPwd)); //TODO faire le hashage en amont de cette fonction (directement a la sortie de la servlet)
+			//loginResult = banque.tryLogin(userCde, userPwd);
+			System.out.println(passwordHasher.hashPassword(userPwd));
 		} catch (Exception e) {
 			e.printStackTrace();
 			loginResult = LoginConstants.ERROR;
