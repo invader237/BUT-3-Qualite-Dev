@@ -55,8 +55,7 @@ public class Connect extends ActionSupport {
 
 		int loginResult;
 		try {
-			loginResult = banque.tryLogin(userCde, passwordHasher.hashPassword(userPwd)); //TODO faire le hashage en amont de cette fonction (directement a la sortie de la servlet)
-			//loginResult = banque.tryLogin(userCde, userPwd);
+			loginResult = banque.tryLogin(userCde, userPwd);
 			System.out.println(passwordHasher.hashPassword(userPwd));
 		} catch (Exception e) {
 			e.printStackTrace();
