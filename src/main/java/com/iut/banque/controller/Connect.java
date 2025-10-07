@@ -2,8 +2,10 @@ package com.iut.banque.controller;
 
 import java.util.Map;
 
+import com.iut.banque.cryptage.HashOldPassword;
 import com.iut.banque.cryptage.PasswordHasher;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -23,6 +25,9 @@ public class Connect extends ActionSupport {
 	private BanqueFacade banque;
 	private PasswordHasher passwordHasher;
 
+	@Autowired
+	private HashOldPassword hashOldPassword;
+
 	/**
 	 * Constructeur de la classe Connect
 	 * 
@@ -35,7 +40,6 @@ public class Connect extends ActionSupport {
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
 		this.passwordHasher = (PasswordHasher) context.getBean("passwordHasher");
-
 	}
 
 	/**
@@ -47,6 +51,15 @@ public class Connect extends ActionSupport {
 	 */
 	public String login() {
 		System.out.println("Essai de login - 20180512...");
+
+		// uncomment the following block to automatically hash all unhashed passwords in the database
+		/*
+		ApplicationContext context = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
+		HashOldPassword hashOldPassword = (HashOldPassword) context.getBean("hashOldPassword");
+		hashOldPassword.run();
+
+		 */
 
 		if (userCde == null || userPwd == null) {
 			return "ERROR";

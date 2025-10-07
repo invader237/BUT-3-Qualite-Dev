@@ -97,4 +97,9 @@
 
 	<!-- Injection de la Cryptographie -->
 	<bean id="passwordHasher" class="com.iut.banque.cryptage.PasswordHasher"/>
+
+	<bean id="hashOldPassword" class="com.iut.banque.cryptage.HashOldPassword">
+		<constructor-arg ref="daoHibernate" />
+		<constructor-arg ref="passwordHasher"/>
+	</bean>
 </beans>
