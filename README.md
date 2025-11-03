@@ -21,5 +21,5 @@ To work on this project, you need to have:
    git clone https://github.com/invader237/BUT-3-Qualite-Dev.git
 
 1. **Follow the configuration instructions**:
-   - Configurration documentation is available [here](./doc/project-configuration.md).
+   - Configuration documentation is available [here](./doc/project-configuration.md).
    - Make sure to follow all steps to set up IntelliJ, Maven, and Tomcat properly before running the project. 
