@@ -51,6 +51,10 @@
 			<result name="SUCCESS">/JSP/Index.jsp</result>
 		</action>
 
+        <action name="changePassword">
+            <result>/JSP/changePassword.jsp</result>
+        </action>
+
 		<action name="retourAccueil">
 			<result>/JSP/Index.jsp</result>
 		</action>
