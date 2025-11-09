@@ -7,6 +7,8 @@ import com.iut.banque.cryptage.PasswordHasher;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,7 +32,7 @@ public class Connect extends ActionSupport {
 
 	/**
 	 * Constructeur de la classe Connect
-	 * 
+	 *
 	 * @return Un objet de type Connect avec façade BanqueFacade provenant de sa
 	 *         factory
 	 */
@@ -45,7 +47,7 @@ public class Connect extends ActionSupport {
 	/**
 	 * Méthode pour vérifier la connexion de l'utilisateur basé sur les
 	 * paramêtres userCde et userPwd de cette classe
-	 * 
+	 *
 	 * @return String, le resultat du login; "SUCCESS" si réussi, "ERROR" si
 	 *         échec
 	 */
@@ -93,7 +95,7 @@ public class Connect extends ActionSupport {
 
 	/**
 	 * Getter du champ userCde
-	 * 
+	 *
 	 * @return String, le userCde de la classe
 	 */
 	public String getUserCde() {
@@ -102,7 +104,7 @@ public class Connect extends ActionSupport {
 
 	/**
 	 * Setter du champ userCde
-	 * 
+	 *
 	 * @param userCde
 	 *            : String correspondant au userCode à établir
 	 */
@@ -112,7 +114,7 @@ public class Connect extends ActionSupport {
 
 	/**
 	 * Getter du champ userPwd
-	 * 
+	 *
 	 * @return String, le userPwd de la classe
 	 */
 	public String getUserPwd() {
@@ -121,7 +123,7 @@ public class Connect extends ActionSupport {
 
 	/**
 	 * Setter du champ userPwd
-	 * 
+	 *
 	 * @param userPwd
 	 *            : correspondant au pwdCde à établir
 	 */
@@ -132,7 +134,7 @@ public class Connect extends ActionSupport {
 	/**
 	 * Getter du champ utilisateur (uilisé pour récupérer l'utilisateur
 	 * actuellement connecté à l'application)
-	 * 
+	 *
 	 * @return Utilisateur, l'utilisateur de la classe
 	 */
 	public Utilisateur getConnectedUser() {
@@ -142,7 +144,7 @@ public class Connect extends ActionSupport {
 	/**
 	 * Méthode qui va récupérer sous forme de map la liste des comptes du client
 	 * actuellement connecté à l'application
-	 * 
+	 *
 	 * @return Map<String, Compte> correspondant à l'ID du compte et l'objet
 	 *         Compte associé
 	 */

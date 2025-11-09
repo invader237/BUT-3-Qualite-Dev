@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- ************************************************************ -->
 	<!-- * Fichier de configuration utilisé par le framework SPRING * -->
@@ -15,6 +14,7 @@
 	<!-- Cf http://docs.spring.io/spring/docs/current/spring-framework-reference/html/orm.html 
 		pour de l'aide sur ce fichier -->
 
+	<context:component-scan base-package="com.iut.banque.controller"/>
 	<!-- ============= DAO (Production) ============= -->
 
 	<!-- La DAO. Utilise la balise <property> qui signifie que l'injection est 
@@ -102,4 +102,7 @@
 		<constructor-arg ref="daoHibernate" />
 		<constructor-arg ref="passwordHasher"/>
 	</bean>
+
+	<bean id="changePasswordAction" class="com.iut.banque.controller.ChangePasswordAction"/>
+
 </beans>

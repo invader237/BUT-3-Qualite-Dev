@@ -10,11 +10,19 @@
 <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
 </head>
 <body>
-	<div class="btnLogout">
-		<s:form name="myForm" action="logout" method="POST">
-			<s:submit name="Retour" value="Logout" />
+
+	<div class="btnLayout">
+		<div class="btnLogout">
+			<s:form name="logoutForm" action="logout" method="POST">
+				<s:submit value="Logout" />
+			</s:form>
+		</div>
+
+		<s:form action="showChangePassword" method="GET">
+			<s:submit value="Changer le mot de passe"/>
 		</s:form>
 	</div>
+
 	<h1>Tableau de bord</h1>
 	<p>
 		Bienvenue <b><s:property value="connectedUser.prenom" /> <s:property

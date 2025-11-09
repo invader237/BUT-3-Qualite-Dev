@@ -12,6 +12,7 @@
 	<!-- Permet d'activer le mode de developpement. Celui-ci donne des informations 
 		supplémentaires. -->
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="spring"/>
 
 	<package name="com.iut.banque" namespace="/" extends="struts-default">
 
@@ -49,6 +50,21 @@
 		<action name="logout" class="com.iut.banque.controller.Connect"
 			method="logout">
 			<result name="SUCCESS">/JSP/Index.jsp</result>
+		</action>
+
+		<action name="connect">
+			<result>/JSP/Connect.jsp</result>
+		</action>
+
+		<!-- Affichage du formulaire de changement de mot de passe (GET) -->
+		<action name="showChangePassword">
+			<result>/JSP/ChangePassword.jsp</result>
+		</action>
+
+		<!-- Traitement du formulaire (POST) -->
+		<action name="changePassword" class="com.iut.banque.controller.ChangePasswordAction" method="changePassword">
+			<result name="input">/JSP/ChangePassword.jsp</result>
+			<result name="success">/JSP/changePasswordSuccess.jsp</result>
 		</action>
 
 		<action name="retourAccueil">
