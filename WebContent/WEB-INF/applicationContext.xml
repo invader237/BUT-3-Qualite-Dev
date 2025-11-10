@@ -44,11 +44,12 @@
 	<bean id="dataSource" scope="singleton"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
+			value="com.mysql.cj.jdbc.Driver" />
 
-		<property name="url" value="jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/brochot6u_QualDev" />
-			<property name="username" value="brochot6u_appli" />
-			<property name="password" value="32304747" />
+		<property name="url"
+				  value="jdbc:mysql://51.91.10.125:3306/qualdev?serverTimezone=UTC&amp;useSSL=false" />
+		<property name="username" value="QualDev" />
+		<property name="password" value="bkJb3JQ479r5Gt" />
 	</bean>
 
 	<!-- ============= Gestion des Transactions ============= -->
