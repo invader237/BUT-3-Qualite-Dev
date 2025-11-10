@@ -38,11 +38,12 @@
 	<bean id="dataSource" scope="singleton"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-				  value="jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/brochot6u_QualDevTest" />
-		<property name="username" value="brochot6u_appli" />
-		<property name="password" value="32304747" />
-		<!-- Nécessaire, sinon les test se font quand même -->
+        <property name="url"
+                  value="jdbc:mysql://51.91.10.125:3306/qualdev_test" />
+        <property name="username" value="QualDev" />
+        <property name="password" value="bkJb3JQ479r5Gt  " />
+
+        <!-- Nécessaire, sinon les test se font quand même -->
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
 	
