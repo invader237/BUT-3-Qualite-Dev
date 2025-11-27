@@ -24,7 +24,6 @@ public class Connect extends ActionSupport {
 	private BanqueFacade banque;
 	private PasswordHasher passwordHasher;
 
-	@Autowired
 	private HashOldPassword hashOldPassword;
 
 	/**
@@ -39,6 +38,7 @@ public class Connect extends ActionSupport {
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
 		this.passwordHasher = (PasswordHasher) context.getBean("passwordHasher");
+		this.hashOldPassword = (HashOldPassword) context.getBean("hashOldPassword");
 	}
 
 	/**
