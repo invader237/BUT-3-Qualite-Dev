@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-
-
-<html>
+<html lang="fr">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Liste des comptes de la banque</title>
@@ -34,6 +32,15 @@
 		<p>Voici l'état des comptes de la banque :</p>
 	</s:else>
 	<table>
+		<thead>
+			<tr>
+				<th>Compte / Client</th>
+				<th>Type</th>
+				<th>Solde</th>
+				<th colspan="2">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
 		<s:iterator value="allClients">
 			<s:if test="(value.possedeComptesADecouvert() || !aDecouvert)">
 				<tr>
@@ -112,6 +119,7 @@
 				</s:iterator>
 			</s:if>
 		</s:iterator>
+		</tbody>
 	</table>
 </body>
 <jsp:include page="/JSP/Footer.jsp" />
