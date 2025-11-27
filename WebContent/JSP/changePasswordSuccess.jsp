@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <title>Succès</title>
   <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />

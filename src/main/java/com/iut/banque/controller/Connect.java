@@ -24,7 +24,6 @@ public class Connect extends ActionSupport {
 	private BanqueFacade banque;
 	private PasswordHasher passwordHasher;
 
-	@Autowired
 	private HashOldPassword hashOldPassword;
 
 	/**
