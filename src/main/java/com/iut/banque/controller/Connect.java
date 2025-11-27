@@ -2,22 +2,19 @@ package com.iut.banque.controller;
 
 import java.util.Map;
 
-import com.iut.banque.cryptage.HashOldPassword;
-import com.iut.banque.cryptage.PasswordHasher;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 import com.iut.banque.constants.LoginConstants;
+import com.iut.banque.cryptage.HashOldPassword;
+import com.iut.banque.cryptage.PasswordHasher;
 import com.iut.banque.facade.BanqueFacade;
 import com.iut.banque.modele.Client;
 import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.Utilisateur;
+import com.opensymphony.xwork2.ActionSupport;
 
 public class Connect extends ActionSupport {
 
