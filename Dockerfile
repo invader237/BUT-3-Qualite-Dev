@@ -5,7 +5,7 @@ COPY pom.xml .
 COPY src ./src
 COPY WebContent ./WebContent
 
-RUN mvn -e -X -DskipTests clean package
+RUN mvn -e -X clean package
 
 FROM tomcat:8-jdk8
 
