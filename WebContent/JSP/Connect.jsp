@@ -21,9 +21,6 @@
 		<s:form action="showChangePassword" method="GET">
 			<s:submit value="Changer le mot de passe"/>
 		</s:form>
-        <s:form name="myForm" action="changePassword" method="GET">
-            <s:submit name="Change password" value="Change password" />
-        </s:form>
 	</div>
 
 	<h1>Tableau de bord</h1>
