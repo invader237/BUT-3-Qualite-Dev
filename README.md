@@ -9,8 +9,6 @@ To work on this project, you need to have:
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/) installed on your computer
 - [Apache Tomcat](https://tomcat.apache.org/) **version 9 or above**
 
-> 💡 If you are working outside of the IUT network, you may also need to connect to the VPN:
-> - [Cisco VPN Access](https://vpn.univ-lorraine.fr/+CSCOE+/logon.html#form_title_text)
 
 ---
 
