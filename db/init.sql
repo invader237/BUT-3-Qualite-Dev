@@ -1,5 +1,7 @@
-DELETE FROM mysql.user WHERE User='';
+ALTER USER 'root'@'%' IDENTIFIED BY 'G7bkJ345btrQ9J';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 
-UPDATE mysql.user SET Host='%' WHERE User='root';
+CREATE USER IF NOT EXISTS 'QualDev'@'%' IDENTIFIED BY 'bkJb3JQ479r5Gt';
+GRANT ALL PRIVILEGES ON qualdev.* TO 'QualDev'@'%';
 
 FLUSH PRIVILEGES;
