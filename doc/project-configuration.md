@@ -14,12 +14,6 @@ Simply launch IntelliJ and open the project folder.
 
 - Follow the documentation in [db_connexion](./database/db_connexion.md).
 
-> ⚠️ If you are working outside of the IUT network, make sure you are connected to the VPN  
-> (see [Prerequisites](../README.md) in the main README).
-> - **URL**: [vpn.lothaire.net](https://vpn.lothaire.net)
-> - **Username**: `<your-id>@etu`
-> - **Password**: `<your-password>`
-
 ---
 
 ## 3. 🏗️ Compile the project
