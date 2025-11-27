@@ -156,10 +156,17 @@ public class DaoHibernate implements IDao {
 			throw new TechnicalException("User Id déjà utilisé.");
 		}
 
+		if (userPwd == null) {
+			throw new IllegalArgumentException("Password cannot be null");
+		}
+
+		// Hash the password before storing it
+		String hashedPwd = passwordHasher.hashPassword(userPwd);
+
 		if (manager) {
-			user = new Gestionnaire(nom, prenom, adresse, male, userId, userPwd);
+			user = new Gestionnaire(nom, prenom, adresse, male, userId, hashedPwd);
 		} else {
-			user = new Client(nom, prenom, adresse, male, userId, userPwd, numClient);
+			user = new Client(nom, prenom, adresse, male, userId, hashedPwd, numClient);
 		}
 		session.save(user);
 
@@ -192,23 +199,21 @@ public class DaoHibernate implements IDao {
 	 */
 	@Override
 	public boolean isUserAllowed(String userId, String userPwd) {
-		Session session = null;
 		if (userId == null || userPwd == null) {
 			return false;
-		} else {
-			session = sessionFactory.openSession();
-			userId = userId.trim();
-			if ("".equals(userId) || "".equals(userPwd)) {
-				return false;
-			} else {
-				session = sessionFactory.getCurrentSession();
-				Utilisateur user = session.get(Utilisateur.class, userId);
-				if (user == null) {
-					return false;
-				}
-				return (passwordHasher.verifyPassword(userPwd, user.getUserPwd())); //TODO verifier la hash
-			}
 		}
+
+		userId = userId.trim();
+		if ("".equals(userId) || "".equals(userPwd)) {
+			return false;
+		}
+
+		Session session = sessionFactory.getCurrentSession();
+		Utilisateur user = session.get(Utilisateur.class, userId);
+		if (user == null) {
+			return false;
+		}
+		return (passwordHasher.verifyPassword(userPwd, user.getUserPwd()));
 	}
 
 	/**
