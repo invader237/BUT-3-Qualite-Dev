@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    container_name: asbank-app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_USER: QualDev
+      DB_PASSWORD: bkJb3JQ479r5Gt
+    depends_on:
+      - db
+  db:
+    build: ./db
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: G7bkJ345btrQ9J
+      MYSQL_USER: QualDev
+      MYSQL_PASSWORD: bkJb3JQ479r5Gt
+      MYSQL_DATABASE: qualdev
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: QualDev
+      PMA_PASSWORD: bkJb3JQ479r5Gt
+    ports:
+      - "9090:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

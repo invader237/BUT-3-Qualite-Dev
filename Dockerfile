@@ -1,27 +1,18 @@
-# Étape de build
-ARG TARGETARCH
-FROM eclipse-temurin:17-jdk-jammy AS build
-
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y maven \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
+FROM maven:3.9.6-eclipse-temurin-8 AS build
 WORKDIR /app
 
 COPY pom.xml .
-RUN mvn -B dependency:resolve
-
 COPY src ./src
 COPY WebContent ./WebContent
 
-RUN mvn -U clean package -DskipTests
+RUN mvn -e -X clean package
 
-# Étape finale avec Tomcat
-ARG TARGETARCH
-FROM tomcat:9.0-jdk11-temurin-jammy
+FROM tomcat:8-jdk8
 
-COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-EXPOSE 8082
+COPY --from=build /app/target/_00_ASBank2023-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ASBank2023.war
+
+EXPOSE 8080
+
 CMD ["catalina.sh", "run"]
