@@ -156,17 +156,10 @@ public class DaoHibernate implements IDao {
 			throw new TechnicalException("User Id déjà utilisé.");
 		}
 
-		if (userPwd == null) {
-			throw new IllegalArgumentException("Password cannot be null");
-		}
-
-		// Hash the password before storing it
-		String hashedPwd = passwordHasher.hashPassword(userPwd);
-
 		if (manager) {
-			user = new Gestionnaire(nom, prenom, adresse, male, userId, hashedPwd);
+			user = new Gestionnaire(nom, prenom, adresse, male, userId, userPwd);
 		} else {
-			user = new Client(nom, prenom, adresse, male, userId, hashedPwd, numClient);
+			user = new Client(nom, prenom, adresse, male, userId, userPwd, numClient);
 		}
 		session.save(user);
 
