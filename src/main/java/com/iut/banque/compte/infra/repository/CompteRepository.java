@@ -1,7 +1,7 @@
-package com.iut.banque.shared.compte.infra.repository;
+package com.iut.banque.compte.infra.repository;
 
 import com.iut.banque.client.domain.entity.Client;
-import com.iut.banque.shared.compte.domain.entity.Compte;
+import com.iut.banque.compte.domain.entity.Compte;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
