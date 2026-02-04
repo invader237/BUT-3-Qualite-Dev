@@ -1,0 +1,15 @@
+get:
+  tags: [Comptes]
+  summary: Récupérer tous les comptes
+  operationId: getAllComptes
+  responses:
+    "200":
+      description: Liste des comptes
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../components/schemas/CompteDto.yaml"
+    "403":
+      description: Accès réservé aux managers

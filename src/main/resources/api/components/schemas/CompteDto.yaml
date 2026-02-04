@@ -1,0 +1,12 @@
+type: object
+properties:
+  id:
+    type: string
+  solde:
+    type: number
+    format: double
+  decouvertAutorise:
+    type: number
+    format: double
+  clientId:
+    type: string

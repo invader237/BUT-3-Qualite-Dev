@@ -1,0 +1,33 @@
+post:
+  tags: [Comptes]
+  summary: Débiter un compte
+  operationId: debiterCompte
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: montant
+      in: query
+      required: true
+      schema:
+        type: number
+        format: double
+  responses:
+    "200":
+      description: Débit effectué
+    "400":
+      description: Montant invalide ou fonds insuffisants
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Error.yaml"
+    "404":
+      description: Compte non trouvé
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Error.yaml"
+    "403":
+      description: Accès refusé

@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Banque API
+  description: |
+    API REST du système bancaire de l'IUT.
+
+    Gestion des utilisateurs, authentification et comptes bancaires.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Environnement local
+
+tags:
+  - name: Auth
+    description: Authentification et session utilisateur
+  - name: Utilisateurs
+    description: Gestion des utilisateurs
+  - name: Comptes
+    description: Gestion des comptes bancaires
+
+paths:
+  /auth/login:
+        $ref: './paths/auth.yaml'
+  /utilisateurs:
+    $ref: './paths/utilisateurs.yaml'
+  /utilisateurs/{userId}:
+    $ref: './paths/utilisateurs_userId.yaml'
+  /comptes/{id}/debiter:
+    $ref: './paths/comptes_id_debiter.yaml'
+  /comptes/{id}/crediter:
+    $ref: './paths/comptes_id_crediter.yaml'
+  /api/comptes/all:
+    $ref: './paths/comptes_all.yaml'
+  /api/comptes/client/{id}/all:
+    $ref: './paths/comptes_client_id_all.yaml'
+  /api/comptes/client/{compteId}:
+    $ref: './paths/comptes_client_compteId.yaml'
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: './components/security/BearerAuth.yaml'
+  schemas:
+    Utilisateur:
+      $ref: './components/schemas/UtilisateurDto.yaml'
+    CreateUtilisateurRequest:
+      $ref: './components/schemas/CreateUtilisateurRequest.yaml'
+    UpdateUtilisateurRequest:
+      $ref: './components/schemas/UpdateUtilisateurRequest.yaml'
+    Error:
+      $ref: './components/schemas/Error.yaml'

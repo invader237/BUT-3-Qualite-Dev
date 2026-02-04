@@ -1,0 +1,25 @@
+get:
+  tags: [Comptes]
+  summary: Récupérer un compte d’un client
+  operationId: getCompteClient
+  parameters:
+    - name: compteId
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: Compte trouvé
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/CompteDto.yaml"
+    "401":
+      description: Client non authentifié
+    "404":
+      description: Compte non trouvé
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Error.yaml"
