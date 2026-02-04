@@ -1,11 +1,20 @@
 package com.iut.banque.compte.infra.rest;
 
+import com.iut.banque.api.ComptesApi;
 import com.iut.banque.client.domain.catalog.ClientCatalog;
 import com.iut.banque.client.domain.entity.Client;
+import com.iut.banque.compte.domain.command.CrediterCompteCommand;
+import com.iut.banque.compte.domain.command.DebiterCompteCommand;
+import com.iut.banque.compte.domain.usecase.CrediterCompteUseCase;
+import com.iut.banque.compte.domain.usecase.DebiterCompteUseCase;
+import com.iut.banque.compte.infra.mapper.CompteToCompteDtoMapper;
 import com.iut.banque.exceptions.InsufficientFundsException;
 import com.iut.banque.compte.domain.catalog.CompteCatalog;
 import com.iut.banque.compte.domain.entity.Compte;
 import com.iut.banque.compte.domain.usecase.CompteUseCase;
+import com.iut.banque.model.CompteDto;
+import com.iut.banque.model.CreateUtilisateurRequest;
+import com.iut.banque.model.UtilisateurDto;
 import com.iut.banque.shared.auth.infra.GetUser;
 import com.iut.banque.utilisateur.domain.entity.Utilisateur;
 import lombok.RequiredArgsConstructor;
@@ -22,95 +31,85 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/comptes")
 @RequiredArgsConstructor
-public class CompteController {
+public class CompteController implements ComptesApi {
 
     private final CompteUseCase compteUseCase;
     private final CompteCatalog compteCatalog;
     private final ClientCatalog clientCatalog;
     private final GetUser getUser;
+    private final DebiterCompteUseCase debiterCompteUseCase;
+    private final CrediterCompteUseCase crediterCompteUseCase;
+    private final CompteToCompteDtoMapper compteToCompteDtoMapper;
 
-    @PostMapping("/{id}/debiter")
-    @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_MANAGER')")
-    public ResponseEntity<String> debiter(
-            @PathVariable String id,
-            @RequestParam double montant) {
-
-        // Récupération du compte
-        Compte compte = compteCatalog.obtenirCompteParId(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Compte non trouvé"));
+    @Override
+    public void debiterCompte(String id, Double montant) {
+        DebiterCompteCommand command =
+                new DebiterCompteCommand(id, montant);
 
         try {
-            // Use case : on passe l'objet direct
-            compteUseCase.debiterCompte(compte, montant);
-            return ResponseEntity.ok("Débit effectué");
+            debiterCompteUseCase.handle(command);
         } catch (InsufficientFundsException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Fonds insuffisants");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Fonds insuffisants");
         } catch (IllegalFormatException e) {
-            return ResponseEntity.badRequest()
-                    .body("Montant invalide");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Montant invalide");
         } catch (com.iut.banque.exceptions.IllegalFormatException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_MANAGER')")
-    @PostMapping("/{id}/crediter")
-    public ResponseEntity<String> crediter(
-            @PathVariable String id,
-            @RequestParam double montant) {
-
-        // Récupération du compte
-        Compte compte = compteCatalog.obtenirCompteParId(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Compte non trouvé"));
+    @Override
+    public void crediterCompte(String id, Double montant) {
+        CrediterCompteCommand command =
+                new CrediterCompteCommand(id, montant);
 
         try {
-            // Use case : on passe l'objet direct
-            compteUseCase.crediterCompte(compte, montant);
-            return ResponseEntity.ok("Crédit effectué");
+            crediterCompteUseCase.handle(command);
         } catch (IllegalFormatException e) {
-            return ResponseEntity.badRequest()
-                    .body("Montant invalide");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Montant invalide");
         } catch (com.iut.banque.exceptions.IllegalFormatException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @GetMapping("/all")
+
+    @Override
     @PreAuthorize("hasRole('ROLE_MANAGER')")
-    public ResponseEntity<List<Compte>> getAllComptes() {
+    public List<CompteDto> getAllComptes() {
         List<Compte> comptes = compteCatalog.obtenirToutLesComptes();
-        return ResponseEntity.ok(comptes);
+        return comptes.stream()
+                .map(compteToCompteDtoMapper)
+                .toList();
     }
 
-    @GetMapping("/client/{id}/all")
+    @Override
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<List<Compte>> getCompteById(@PathVariable String id) {
+    public CompteDto getCompteClient(String compteId) {
         Utilisateur utilisateur = getUser.apply();
         Optional<Client> client = clientCatalog.obtenirClientParId(utilisateur.getUserId());
-        List<Compte> comptes = compteCatalog.obtenirComptesParClient(client.orElse(null));
-        return ResponseEntity.ok(comptes);
-    }
-
-    @GetMapping("/client/{compteId}")
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<Compte> getCompteClient(
-            @PathVariable String compteId) {
-
-        Utilisateur utilisateur = getUser.apply();
-        Client client = clientCatalog.obtenirClientParId(utilisateur.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.UNAUTHORIZED, "Client non authentifié"));
-
-        try {
-            Compte compte =
-                    compteUseCase.obtenirCompteClient(client, compteId);
-            return ResponseEntity.ok(compte);
-        } catch (IllegalArgumentException e) {
+        if (client.isEmpty()) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+                    HttpStatus.NOT_FOUND, "Client non trouvé");
         }
+        Compte compte = compteUseCase.obtenirCompteClient(client.get(), compteId);
+        return compteToCompteDtoMapper.apply(compte);
     }
+
+    @Override
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public List<CompteDto> getComptesClient(String id) {
+        Utilisateur utilisateur = getUser.apply();
+        Optional<Client> client = clientCatalog.obtenirClientParId(utilisateur.getUserId());
+        if (client.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Client non trouvé");
+        }
+        List<Compte> comptes = compteCatalog.obtenirComptesParClient(client.get());
+        return comptes.stream()
+                .map(compteToCompteDtoMapper)
+                .toList();
+    }
+
 }

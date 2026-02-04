@@ -20,20 +20,6 @@ public class CompteUseCase {
     private final UtilisateurCatalog utilisateurCatalog;
 
     @Transactional
-    public void debiterCompte(Compte compte, double montant)
-        throws InsufficientFundsException, IllegalFormatException {
-        compte.debiter(montant);
-        compteCatalog.enregistrerCompte(compte);
-    }
-
-    @Transactional
-    public void crediterCompte(Compte compte, double montant)
-        throws IllegalFormatException {
-        compte.crediter(montant);
-        compteCatalog.enregistrerCompte(compte);
-    }
-
-    @Transactional
     public Compte obtenirCompteClient(Client client, String compteId) {
         Optional<Compte> compte = compteCatalog.obtenirCompteParId(compteId);
         if (compte.isEmpty() || !compte.get().getOwner().equals(client)) {
