@@ -1,0 +1,15 @@
+get:
+  tags: [ComptesAvecDecouvert]
+  summary: Récupérer tous les comptes a découvert
+  operationId: getAllComptes
+  responses:
+    "200":
+      description: Liste des comptes a découvert
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../components/schemas/CompteDto.yaml"
+    "403":
+      description: Accès réservé aux managers
