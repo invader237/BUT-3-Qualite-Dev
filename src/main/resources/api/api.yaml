@@ -30,12 +30,14 @@ paths:
     $ref: './paths/comptes_id_debiter.yaml'
   /comptes/{id}/crediter:
     $ref: './paths/comptes_id_crediter.yaml'
-  /api/comptes/all:
+  /comptes/all:
     $ref: './paths/comptes_all.yaml'
-  /api/comptes/client/{id}/all:
+  /comptes/client/{id}/all:
     $ref: './paths/comptes_client_id_all.yaml'
-  /api/comptes/client/{compteId}:
+  /comptes/client/{compteId}:
     $ref: './paths/comptes_client_compteId.yaml'
+  /comptes/avec-decouvert/all:
+    $ref: './paths/comptes_avec_decouvert_all.yaml'
 components:
   securitySchemes:
     BearerAuth:

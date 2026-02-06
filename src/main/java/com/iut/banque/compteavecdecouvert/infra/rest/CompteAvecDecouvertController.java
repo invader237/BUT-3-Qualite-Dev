@@ -1,27 +1,26 @@
 package com.iut.banque.compteavecdecouvert.infra.rest;
 
+import com.iut.banque.api.ComptesAvecDecouvertApi;
+import com.iut.banque.compte.infra.mapper.CompteToCompteDtoMapper;
 import com.iut.banque.compteavecdecouvert.domain.catalog.CompteAvecDecouvertCatalog;
 import com.iut.banque.compteavecdecouvert.domain.entity.CompteAvecDecouvert;
+import com.iut.banque.model.CompteDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/comptes/avec-decouvert")
-public class CompteAvecDecouvertController {
+public class CompteAvecDecouvertController implements ComptesAvecDecouvertApi {
 
     private final CompteAvecDecouvertCatalog compteAvecDecouvertCatalog;
+    private final CompteToCompteDtoMapper compteToCompteDtoMapper;
 
-    @GetMapping("/a-decouvert/all")
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
-    public ResponseEntity<List<CompteAvecDecouvert>> getAllComptes() {
+    @Override
+    public List<CompteDto> getAllComptes() {
         List<CompteAvecDecouvert> comptes = compteAvecDecouvertCatalog.obtenirToutLesComptesADecouvert();
-        return ResponseEntity.ok(comptes);
+        return comptes.stream()
+                .map(compteToCompteDtoMapper).toList();
     }
 }
