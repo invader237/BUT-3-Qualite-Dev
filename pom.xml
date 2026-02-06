@@ -113,6 +113,19 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.6.3</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -152,7 +165,6 @@
 					<encoding>${maven.encoding}</encoding>
 				</configuration>
 			</plugin>
-			<!--
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
@@ -165,9 +177,9 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/api/api.yaml</inputSpec>
 							<generatorName>spring</generatorName>
-							<packageName>fr.mad.HandiMeteo</packageName>
-							<apiPackage>fr.mad.HandiMeteo.api</apiPackage>
-							<modelPackage>fr.mad.HandiMeteo.model</modelPackage>
+							<packageName>com.iut.banque</packageName>
+							<apiPackage>com.iut.banque.api</apiPackage>
+							<modelPackage>com.iut.banque.model</modelPackage>
 							<generateSupportingFiles>true</generateSupportingFiles>
 							<generateApiDocumentation>true</generateApiDocumentation>
 							<generateModels>true</generateModels>
@@ -197,7 +209,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			-->
 		</plugins>
 	</build>
 
