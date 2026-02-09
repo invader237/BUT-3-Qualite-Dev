@@ -3,12 +3,17 @@ package com.iut.banque.shared.auth.domain.service;
 import com.iut.banque.shared.auth.configuration.PasswordService;
 import com.iut.banque.utilisateur.domain.catalog.UtilisateurCatalog;
 
+import com.iut.banque.utilisateur.domain.command.ChangePasswordCommand;
+import com.iut.banque.utilisateur.domain.command.RegisterUserCommand;
 import com.iut.banque.utilisateur.domain.entity.Utilisateur;
 import com.iut.banque.client.domain.entity.Client;
+import com.iut.banque.utilisateur.domain.exceptions.AuthenticationFailedException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -50,7 +55,7 @@ public class AuthService {
 
     @PostConstruct
     public void init() {
-        byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -109,34 +114,26 @@ public class AuthService {
         // .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec cet email."));
     }
 
-    public void registerUser(
-            String numeroClient,
-            String numeroCompte,
-            String userId,
-            String userPwd,
-            String nom,
-            String prenom,
-            boolean male
-    ) throws Exception {
-        log.info("Register attempt for userId={}", userId);
+    public void registerUser( RegisterUserCommand registerUserCommand ) {
+        log.info("Register attempt for userId={}", registerUserCommand.userId());
 
-        String hashedPassword = passwordEncoder.encode(userPwd);
+        String hashedPassword = passwordEncoder.encode(registerUserCommand.password());
 
         try {
             Client client = new Client();
-            client.setUserId(userId);
+            client.setUserId(registerUserCommand.userId());
             client.setUserPwd(hashedPassword);
-            client.setPrenom(prenom);
-            client.setNom(nom);
-            client.setAdresse("");
-            client.setMale(male);
-            client.setNumeroClient(numeroClient);
+            client.setPrenom(registerUserCommand.prenom());
+            client.setNom(registerUserCommand.nom());
+            client.setAdresse(registerUserCommand.adresse());
+            client.setMale(registerUserCommand.male());
+            client.setNumeroClient(registerUserCommand.numClient());
 
             utilisateurCatalog.enregistrerUtilisateur(client);
 
-            log.info("Registration successful for userId={}", userId);
+            log.info("Registration successful for userId={}", registerUserCommand.userId());
         } catch (IllegalArgumentException | com.iut.banque.exceptions.IllegalFormatException e) {
-            log.error("Registration failed while creating client for userId={}", userId, e);
+            log.error("Registration failed while creating client for userId={}", registerUserCommand.userId(), e);
             throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
@@ -147,14 +144,14 @@ public class AuthService {
 
         if (!utilisateurCatalog.existeParUserId(userId.toLowerCase())) {
             log.warn("Authentication failed: user not found={}", userId);
-            throw new BadCredentialsException("Identifiant ou mot de passe invalide.");
+            throw new AuthenticationFailedException();
         }
 
         Utilisateur user = utilisateurCatalog.obtenirUtilisateurParUtilisateurId(userId.toLowerCase());
 
         if (!passwordEncoder.matches(password, user.getUserPwd())) {
             log.warn("Authentication failed: bad credentials for userId={}", userId);
-            throw new BadCredentialsException("Mot de passe incorrect");
+            throw new AuthenticationFailedException();
         }
 
         List<GrantedAuthority> authorities = buildAuthorities(user);
@@ -192,5 +189,11 @@ public class AuthService {
 
     public void logout() {
         SecurityContextHolder.clearContext();
+    }
+
+    public void changePassword(Utilisateur utilisateur, String newPassword) {
+        String hashedPassword = passwordEncoder.encode(newPassword);
+        utilisateur.setUserPwd(hashedPassword);
+        utilisateurCatalog.enregistrerUtilisateur(utilisateur);
     }
 }

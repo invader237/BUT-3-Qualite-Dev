@@ -2,6 +2,8 @@ package com.iut.banque.shared.auth.configuration;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
@@ -28,7 +30,8 @@ public class JwtUtil {
                     "JWT_SECRET n'est pas défini dans les variables d'environnement");
         }
 
-        this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(jwtSecret));
+        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
         this.authExpiration = authExpiration;
         this.resetExpiration = resetExpiration;
     }
