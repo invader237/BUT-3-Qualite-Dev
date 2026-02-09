@@ -1,0 +1,60 @@
+get:
+  tags: [Utilisateurs]
+  summary: Informations de l'utilisateur connecté
+  operationId: me
+  responses:
+      '200':
+        description: Informations de l'utilisateur
+        content:
+            application/json:
+              schema:
+                $ref: '../components/schemas/UtilisateurDto.yaml'
+      '401':
+        description: Non authentifié
+
+post:
+  tags: [Utilisateurs]
+  summary: Authentification utilisateur
+  operationId: login
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/LoginRequest.yaml'
+  responses:
+    '200':
+      description: Authentification réussie
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/TokenResponse.yaml'
+    '401':
+      description: Identifiants invalides
+
+put:
+  tags: [Utilisateurs]
+  summary: Modification du mot de passe de l'utilisateur connecté
+  operationId: changePassword
+  requestBody:
+    required: true
+    content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ChangePasswordRequest.yaml'
+  responses:
+    '202':
+      description: "Mot de passe modifié"
+    "400":
+      description: Mot de passe invalide
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Error.yaml"
+delete:
+    tags: [Utilisateurs]
+    summary: Déconnexion de l'utilisateur connecté
+    operationId: logout
+    responses:
+      '204':
+          description: "Déconnexion réussie"

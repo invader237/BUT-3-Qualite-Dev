@@ -1,0 +1,24 @@
+type: object
+required:
+  - userId
+  - userPwd
+  - nom
+  - prenom
+  - male
+  - type
+properties:
+  userId:
+    type: string
+  userPwd:
+    type: string
+    format: password
+  nom:
+    type: string
+  prenom:
+    type: string
+  adresse:
+    type: string
+  male:
+    type: boolean
+  type:
+    type: string

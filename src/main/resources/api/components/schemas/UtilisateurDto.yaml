@@ -1,0 +1,27 @@
+type: object
+required:
+  - userId
+  - nom
+  - prenom
+  - male
+  - type
+properties:
+  userId:
+    type: string
+    example: u12345
+  nom:
+    type: string
+    example: Dupont
+  prenom:
+    type: string
+    example: Jean
+  adresse:
+    type: string
+    example: 10 rue de Paris
+  male:
+    type: boolean
+    example: true
+  type:
+    type: string
+    description: Type d'utilisateur (discriminator)
+    example: CLIENT

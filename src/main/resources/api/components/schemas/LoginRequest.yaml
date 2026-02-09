@@ -1,0 +1,9 @@
+type: object
+required: [userId, password]
+properties:
+  userId:
+    type: string
+    example: user@email.fr
+  password:
+    type: string
+    format: password

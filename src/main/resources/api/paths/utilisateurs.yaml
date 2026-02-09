@@ -1,0 +1,49 @@
+#get:
+#  tags: [Utilisateurs]
+#  summary: Liste des utilisateurs
+#  operationId: listUtilisateurs
+#  responses:
+#    '200':
+#      description: Liste des utilisateurs
+#      content:
+#        application/json:
+#          schema:
+#            type: array
+#            items:
+#              $ref: '../components/schemas/UtilisateurDto.yaml'
+#    '500':
+#      description: Erreur serveur
+#      content:
+#        application/json:
+#          schema:
+#            $ref: '../components/schemas/Error.yaml'
+
+post:
+  tags: [Utilisateurs]
+  summary: Création d'un utilisateur
+  operationId: createUtilisateur
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/CreateUtilisateurRequest.yaml'
+  responses:
+    '201':
+      description: Utilisateur créé
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/UtilisateurDto.yaml'
+    '400':
+      description: Requête invalide
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    '500':
+      description: Erreur serveur
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'

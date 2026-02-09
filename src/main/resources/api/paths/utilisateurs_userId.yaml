@@ -1,0 +1,35 @@
+get:
+  tags: [Utilisateurs]
+  summary: Récupérer un utilisateur
+  operationId: getUtilisateur
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
+  responses:
+    '200':
+      description: Utilisateur trouvé
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/UtilisateurDto.yaml'
+    '404':
+      description: Utilisateur introuvable
+
+put:
+  tags: [Utilisateurs]
+  summary: Modifier un utilisateur
+  operationId: updateUtilisateur
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/UpdateUtilisateurRequest.yaml'
+  responses:
+    '200':
+      description: Utilisateur modifié
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/UtilisateurDto.yaml'

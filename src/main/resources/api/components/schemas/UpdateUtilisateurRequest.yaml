@@ -1,0 +1,10 @@
+type: object
+properties:
+  nom:
+    type: string
+  prenom:
+    type: string
+  adresse:
+    type: string
+  male:
+    type: boolean

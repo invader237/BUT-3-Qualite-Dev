@@ -1,0 +1,25 @@
+type: object
+required:
+  - numeroClient
+  - numeroCompte
+  - userId
+  - userPwd
+  - nom
+  - prenom
+  - male
+properties:
+  numeroClient:
+    type: string
+  numeroCompte:
+    type: string
+  userId:
+    type: string
+  userPwd:
+    type: string
+    format: password
+  nom:
+    type: string
+  prenom:
+    type: string
+  male:
+    type: boolean
