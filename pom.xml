@@ -18,6 +18,17 @@
 		<maven.compiler.target>21</maven.compiler.target>
 		<maven.encoding>UTF-8</maven.encoding>
 	</properties>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 	<url/>
 	<licenses>
 		<license/>

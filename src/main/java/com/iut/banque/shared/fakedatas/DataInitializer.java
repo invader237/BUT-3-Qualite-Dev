@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
+@Profile("dev")
 @Transactional(readOnly = false)
 public class DataInitializer implements CommandLineRunner {
 
