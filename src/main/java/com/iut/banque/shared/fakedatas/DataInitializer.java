@@ -26,7 +26,6 @@ public class DataInitializer implements CommandLineRunner {
     private final CompteCatalog compteCatalog;
 
     public void initUtilisateurs() throws IllegalFormatException {
-        System.out.println("Initializing utilisateurs");
         utilisateurCatalog.enregistrerUtilisateur(
                 new Client(
                         "Lidell",
