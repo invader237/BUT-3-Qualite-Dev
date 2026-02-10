@@ -56,7 +56,7 @@ public class UtilisateurController implements UtilisateursApi {
     }
 
     @Override
-    //@PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public UtilisateurDto createUtilisateur(CreateUtilisateurRequest createUtilisateurRequest) {
         authService.registerUser(createUtilisateurRequestToRegisterUserCommand.apply(createUtilisateurRequest));
         return utilisateurToUtilisateurDtoMapper.apply(utilisateurCatalog.obtenirUtilisateurParUtilisateurId(createUtilisateurRequest.getUserId()));
