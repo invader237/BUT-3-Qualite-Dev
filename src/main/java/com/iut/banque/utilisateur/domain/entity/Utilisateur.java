@@ -67,7 +67,13 @@ public abstract class Utilisateur {
     @Column(name = "male")
     private boolean male;
 
-    public Utilisateur(String nom, String prenom, String adresse, boolean homme, String usrId, String usrPwd) {
+    public Utilisateur(String nom, String prenom, String adresse, boolean homme, String userId, String usrPwd) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.male = homme;
+        this.userPwd = usrPwd;
+        this.userId = userId;
     }
 
     /**

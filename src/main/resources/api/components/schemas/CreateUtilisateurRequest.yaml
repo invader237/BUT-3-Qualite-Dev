@@ -22,3 +22,5 @@ properties:
     type: boolean
   type:
     type: string
+  numClient:
+    type: string

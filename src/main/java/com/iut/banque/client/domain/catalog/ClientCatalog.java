@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface ClientCatalog {
 
     Optional<Client> obtenirClientParId(String id);
+    Client rechercherParUserId(String clientId);
 }

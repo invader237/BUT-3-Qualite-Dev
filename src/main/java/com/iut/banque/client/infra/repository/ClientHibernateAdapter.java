@@ -17,4 +17,10 @@ public class ClientHibernateAdapter implements ClientCatalog {
     public Optional<Client> obtenirClientParId(String id) {
         return clientRepository.findById(id);
     }
+
+    @Override
+    public Client rechercherParUserId(String clientId) {
+        return clientRepository.findById(clientId).orElseThrow();
+    }
+
 }
