@@ -47,36 +47,58 @@ public class UtilisateurController implements UtilisateursApi {
     @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_MANAGER')")
     public void changePassword(ChangePasswordRequest changePasswordRequest) {
         Utilisateur utilisateur = getUser.apply();
+
+        log.info("Changement de mot de passe demandé pour l'utilisateur id: {}", utilisateur.getUserId());
+
         ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(
                 utilisateur,
                 changePasswordRequest.getOldPassword(),
                 changePasswordRequest.getNewPassword()
         );
         changePasswordUseCase.handle(changePasswordCommand);
+
+        log.info("Changement de mot de passe réussi pour l'utilisateur id: {}", utilisateur.getUserId());
     }
 
     @Override
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     public UtilisateurDto createUtilisateur(CreateUtilisateurRequest createUtilisateurRequest) {
+
+        log.info("Création d'un nouvel utilisateur avec l'id: {}", createUtilisateurRequest.getUserId());
+
         authService.registerUser(createUtilisateurRequestToRegisterUserCommand.apply(createUtilisateurRequest));
+
+        log.info("Utilisateur créé avec succès avec l'id: {}", createUtilisateurRequest.getUserId());
+
         return utilisateurToUtilisateurDtoMapper.apply(utilisateurCatalog.obtenirUtilisateurParUtilisateurId(createUtilisateurRequest.getUserId()));
     }
 
     @Override
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     public UtilisateurDto getUtilisateur(String userId) {
+
+        log.info("Récupération de l'utilisateur avec l'id: {}", userId);
+
         Utilisateur utilisateur = utilisateurCatalog.obtenirUtilisateurParUtilisateurId(userId);
+
+        log.info("Récupération de l'utilisateur réussie avec l'id: {}", userId);
+
         return utilisateurToUtilisateurDtoMapper.apply(utilisateur);
     }
 
     @Override
     public TokenResponse login(LoginRequest loginRequest) {
+
+        log.info("Login attempt for userId={}", loginRequest.getUserId());
+
         return loginUseCase.execute(loginRequestToLoginCommandMapper.apply(loginRequest));
     }
 
     @Override
     public void logout() {
-        log.info("Logout request");
+
+        log.info("Logout request received for userId={}", getUser.apply().getUserId());
+
         authService.logout();
     }
 

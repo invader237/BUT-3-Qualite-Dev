@@ -9,7 +9,10 @@ import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.gestionnaire.domain.entity.Gestionnaire;
 import com.iut.banque.utilisateur.domain.catalog.UtilisateurCatalog;
+import com.iut.banque.utilisateur.infra.rest.UtilisateurController;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,8 @@ public class DataInitializer implements CommandLineRunner {
     private final UtilisateurCatalog utilisateurCatalog;
     private final ClientCatalog clientCatalog;
     private final CompteCatalog compteCatalog;
+
+    private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
 
     public void initUtilisateurs() throws IllegalFormatException {
         utilisateurCatalog.enregistrerUtilisateur(
@@ -239,7 +244,10 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.info("Initialisation des données de test...");
         initUtilisateurs();
+        log.info("Initialisation des utilisateur terminée.");
         initComptes();
+        log.info("Initialisation des comptes terminée.");
     }
 }
