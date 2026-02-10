@@ -1,0 +1,54 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Diego (generated)" id="1770658127638-1">
+        <createTable tableName="Compte">
+            <column name="numeroCompte" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="userId" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="solde" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avecDecouvert" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="decouvertAutorise" type="DECIMAL(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Diego (generated)" id="1770658127638-2">
+        <createTable tableName="Utilisateur">
+            <column name="userId" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="nom" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prenom" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adresse" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="userPwd" type="VARCHAR(250)"/>
+            <column name="male" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="numClient" type="VARCHAR(45)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Diego (generated)" id="1770658127638-3">
+        <createIndex associatedWith="" indexName="index_userClient" tableName="Compte">
+            <column name="userId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Diego (generated)" id="1770658127638-4">
+        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="Compte" constraintName="fk_Compte_userId" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="userId" referencedTableName="Utilisateur" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
