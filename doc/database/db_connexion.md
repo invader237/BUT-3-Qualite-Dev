@@ -1,40 +1,5 @@
 # 📘 Database Connection — Documentation
 
-## Test Environment Configuration
-
-To configure the database connection used during tests, edit the following files located in:
-
-```
-src/test/resources/
-```
-
-Files to update:
-
-- `TestsBanqueManager-context.xml`
-- `TestsDaoHibernate-context.xml`
-
-Use the following configuration:
-
-```xml
-<bean id="dataSource" scope="singleton"
-      class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-
-    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-
-    <property name="url"
-              value="jdbc:mysql://51.91.10.125:3306/qualdev_test?serverTimezone=UTC&amp;useSSL=false" />
-
-    <property name="username" value="QualDev" />
-
-    <property name="password" value="bkJb3JQ479r5Gt" />
-
-    <!-- Required to ensure that tests do not auto-commit changes -->
-    <property name="defaultAutoCommit" value="false" />
-</bean>
-```
-
----
-
 ## 📡 Deploying the Test Database on a VPS
 
 The test database is deployed using the **Dockerfile located in the `/db` directory** of the project and is exposed at:
