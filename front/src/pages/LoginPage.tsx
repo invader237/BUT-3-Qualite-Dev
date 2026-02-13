@@ -20,7 +20,7 @@ export function LoginPage() {
 	const [password, setPassword] = useState("");
 
 	// Where to redirect after successful login
-	const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? "/";
+	const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? "/dashboard";
 
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
