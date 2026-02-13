@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import { Sidebar, useSidebar } from "@/components/Sidebar"
 import { AppLayout } from "@/layouts/AppLayout"
 import { useAuth, RequireAuth } from "@/auth"
-import { MesComptesPage, TableauDeBordPage, TransactionsPage, ParametresPage, LoginPage } from "@/pages"
+import { MesComptesPage, TableauDeBordPage, TransactionsPage, ParametresPage, LoginPage, AccueilPage } from "@/pages"
 
 function AuthenticatedApp() {
 	const sidebar = useSidebar(false)
@@ -52,6 +52,7 @@ function AuthenticatedApp() {
 function App() {
 	return (
 		<Routes>
+			<Route path="/" element={<AccueilPage />} />
 			<Route path="/login" element={<LoginPage />} />
 			<Route
 				path="/*"
