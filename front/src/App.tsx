@@ -1,4 +1,4 @@
-import { Landmark, LayoutDashboard, Settings, CreditCard, Users } from "lucide-react"
+import { Landmark, LayoutDashboard, Settings, CreditCard, Users, LogOut } from "lucide-react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { Sidebar, useSidebar } from "@/components/Sidebar"
 import { AppLayout } from "@/layouts/AppLayout"
@@ -7,7 +7,7 @@ import { MesComptesPage, AdminComptesPage, TableauDeBordPage, TransactionsPage, 
 
 function AuthenticatedApp() {
 	const sidebar = useSidebar(false)
-	const { user } = useAuth()
+	const { user, logout } = useAuth()
 
 	const displayName = user ? `${user.prenom} ${user.nom}` : ""
 	const isManager = user?.type === "MANAGER"
@@ -37,6 +37,7 @@ function AuthenticatedApp() {
 					{/* ── Bottom: user profile + collapse toggle ── */}
 					<Sidebar.Footer>
 						<Sidebar.Profile name={displayName} />
+						<Sidebar.NavItem icon={LogOut} label="Déconnexion" onClick={logout} />
 						<Sidebar.Toggle />
 					</Sidebar.Footer>
 				</Sidebar.Root>

@@ -4,17 +4,17 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import "@radix-ui/themes/styles.css";
 import App from '@/App'
-import { Theme } from '@radix-ui/themes';
+import { ThemeProvider } from '@/theme';
 import { AuthProvider } from '@/auth';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <Theme accentColor="blue" radius="medium">
+      <ThemeProvider>
         <AuthProvider>
           <App />
         </AuthProvider>
-      </Theme>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 )
