@@ -12,13 +12,18 @@ export function MesComptesPage() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	const isManager = user?.type === "MANAGER";
+
 	useEffect(() => {
 		if (!user) return;
 
 		let cancelled = false;
 
-		compteApi
-			.getByClient(user.userId)
+		const request = isManager
+			? compteApi.getAll()
+			: compteApi.getByClient(user.userId);
+
+		request
 			.then(({ data }) => {
 				if (!cancelled) setComptes(data);
 			})
@@ -30,7 +35,7 @@ export function MesComptesPage() {
 			});
 
 		return () => { cancelled = true; };
-	}, [user]);
+	}, [user, isManager]);
 
 	if (loading) {
 		return <Spinner size="3" />;
@@ -41,11 +46,14 @@ export function MesComptesPage() {
 	}
 
 	return (
-		<CompteList.Root variant="user">
+		<CompteList.Root variant={isManager ? "admin" : "user"}>
 			<CompteList.Header
 				icon={Landmark}
-				title="Mes comptes"
-				description="Retrouvez ici l'ensemble de vos comptes bancaires."
+				title={isManager ? "Tous les comptes" : "Mes comptes"}
+				description={isManager
+					? "Vue d'ensemble de tous les comptes bancaires."
+					: "Retrouvez ici l'ensemble de vos comptes bancaires."
+				}
 			/>
 			<CompteList.Content>
 				{comptes.length === 0
