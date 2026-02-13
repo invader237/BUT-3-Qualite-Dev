@@ -1,13 +1,13 @@
-import { Landmark, LayoutDashboard, Settings, CreditCard } from "lucide-react"
+import { Landmark, LayoutDashboard, Settings, CreditCard, UserSearch, LogOut } from "lucide-react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { Sidebar, useSidebar } from "@/components/Sidebar"
 import { AppLayout } from "@/layouts/AppLayout"
 import { useAuth, RequireAuth } from "@/auth"
-import { MesComptesPage, TableauDeBordPage, TransactionsPage, ParametresPage, LoginPage } from "@/pages"
+import { MesComptesPage, AdminUtilisateursPage, TableauDeBordPage, TransactionsPage, ParametresPage, LoginPage } from "@/pages"
 
 function AuthenticatedApp() {
 	const sidebar = useSidebar(false)
-	const { user } = useAuth()
+	const { user, logout } = useAuth()
 
 	const displayName = user ? `${user.prenom} ${user.nom}` : ""
 
@@ -16,8 +16,9 @@ function AuthenticatedApp() {
 			sidebarCollapsed={sidebar.collapsed}
 			sidebar={
 				<Sidebar.Root sidebar={sidebar}>
-					{/* ── Top: bank accounts ── */}
+					{/* ── Top ── */}
 					<Sidebar.Header>
+						<Sidebar.Toggle />
 						<Sidebar.NavItem icon={Landmark} label="Mes comptes" to="/comptes" />
 					</Sidebar.Header>
 
@@ -28,12 +29,18 @@ function AuthenticatedApp() {
 							<Sidebar.NavItem icon={CreditCard} label="Transactions" to="/transactions" />
 							<Sidebar.NavItem icon={Settings} label="Paramètres" to="/parametres" />
 						</Sidebar.Group>
+
+							<Sidebar.Group label="Administration">
+								<Sidebar.NavItem icon={UserSearch} label="Utilisateurs" to="/admin/utilisateurs" />
+							</Sidebar.Group>
+
 					</Sidebar.Nav>
 
 					{/* ── Bottom: user profile + collapse toggle ── */}
 					<Sidebar.Footer>
 						<Sidebar.Profile name={displayName} />
-						<Sidebar.Toggle />
+						<Sidebar.NavItem icon={LogOut} label="Déconnexion" onClick={logout} />
+						
 					</Sidebar.Footer>
 				</Sidebar.Root>
 			}
@@ -41,6 +48,7 @@ function AuthenticatedApp() {
 			<Routes>
 				<Route path="/" element={<Navigate to="/dashboard" replace />} />
 				<Route path="/comptes" element={<MesComptesPage />} />
+<Route path="/admin/utilisateurs" element={<AdminUtilisateursPage />} />
 				<Route path="/dashboard" element={<TableauDeBordPage />} />
 				<Route path="/transactions" element={<TransactionsPage />} />
 				<Route path="/parametres" element={<ParametresPage />} />

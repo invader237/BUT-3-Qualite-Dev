@@ -1,0 +1,66 @@
+/* ------------------------------------------------------------------ */
+/*  CompteList – CSS variables & layout                                */
+/* ------------------------------------------------------------------ */
+
+.compte-list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Header ------------------------------------------------------------- */
+
+.compte-list__header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Content ------------------------------------------------------------ */
+
+.compte-list__content {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	max-width: 600px;
+}
+
+/* Group -------------------------------------------------------------- */
+
+.compte-list__group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.compte-list__group + .compte-list__group {
+	margin-top: 16px;
+}
+
+.compte-list__group-label {
+	padding-bottom: 4px;
+	border-bottom: 1px solid var(--gray-a5);
+}
+
+.compte-list__group-items {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* Item --------------------------------------------------------------- */
+
+.compte-list__item {
+	transition: box-shadow 120ms ease;
+}
+
+.compte-list__item:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Empty -------------------------------------------------------------- */
+
+.compte-list__empty {
+	padding: 32px 0;
+	text-align: center;
+}
