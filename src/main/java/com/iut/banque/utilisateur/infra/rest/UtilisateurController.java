@@ -40,6 +40,7 @@ public class UtilisateurController implements UtilisateursApi {
     @Override
     @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_MANAGER')")
     public UtilisateurDto me() {
+        log.info("Récupération des informations de l'utilisateur connecté id: {}", getUser.apply().getUserId());
         return utilisateurToUtilisateurDtoMapper.apply(getUser.apply());
     }
 
