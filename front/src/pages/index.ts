@@ -1,4 +1,5 @@
 export { MesComptesPage } from "./MesComptesPage";
+export { AdminComptesPage } from "./AdminComptesPage";
 export { TableauDeBordPage } from "./TableauDeBordPage";
 export { TransactionsPage } from "./TransactionsPage";
 export { ParametresPage } from "./ParametresPage";
