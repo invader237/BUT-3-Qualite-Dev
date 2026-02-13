@@ -92,6 +92,12 @@ Fill in the configuration as follows:
   spring-boot:run
   ```
 
+* **Working directory**:
+
+  ```
+  <path-to-project-root>
+  ```
+
 * **Profiles**:
 
   ```
