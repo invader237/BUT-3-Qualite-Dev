@@ -1,0 +1,20 @@
+/* ------------------------------------------------------------------ */
+/*  AppLayout                                                          */
+/* ------------------------------------------------------------------ */
+
+.app-layout {
+	display: flex;
+	min-height: 100vh;
+}
+
+.app-layout__content {
+	flex: 1;
+	margin-left: var(--sidebar-width, 240px);
+	padding: 32px;
+	transition: margin-left 200ms ease;
+}
+
+/* When sidebar is collapsed, shrink the content margin using layout root class */
+.app-layout--sidebar-collapsed .app-layout__content {
+	margin-left: var(--sidebar-collapsed-width, 60px);
+}

@@ -1,0 +1,26 @@
+/* Global CSS variables for the whole project
+   Place all color / theme variables here so components can reference them.
+*/
+:root {
+  /* core */
+  --bg: #ffffff;
+  --text: #111827;
+  --color-background: var(--bg);
+  --color-text: var(--text);
+
+  /* gray scale (light -> dark) */
+  --gray-a3: #f3f4f6;
+  --gray-a5: #e5e7eb;
+  --gray-a9: #6b7280;
+  --gray-a11: #9ca3af;
+  --gray-12: #374151;
+
+  /* accents (example: blue) */
+  --accent-a3: #eff6ff;
+  --accent-a4: #dbeafe;
+  --accent-11: #1d4ed8;
+
+  /* component-specific fallbacks (kept for compatibility) */
+  --sidebar-bg: var(--color-background);
+  --sidebar-border: var(--gray-a5);
+}

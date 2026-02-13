@@ -1,0 +1,205 @@
+/* ------------------------------------------------------------------ */
+/*  Sidebar – CSS variables & layout                                   */
+/* ------------------------------------------------------------------ */
+
+:root {
+	--sidebar-width: 240px;
+	--sidebar-collapsed-width: 60px;
+	--sidebar-bg: var(--color-background);
+	--sidebar-border: var(--gray-a5);
+	--sidebar-item-radius: 8px;
+	--sidebar-transition: 200ms ease;
+}
+
+/* Root --------------------------------------------------------------- */
+
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 40;
+
+	display: flex;
+	flex-direction: column;
+	width: var(--sidebar-width);
+	padding: 12px 8px;
+	background: var(--sidebar-bg);
+	border-right: 1px solid var(--sidebar-border);
+	transition: width var(--sidebar-transition);
+	overflow: hidden;
+	overflow-x: hidden; /* prevent horizontal scrolling inside the sidebar */
+}
+
+.sidebar--collapsed {
+	width: var(--sidebar-collapsed-width);
+}
+
+/* Header ------------------------------------------------------------- */
+
+.sidebar__header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--sidebar-border);
+}
+
+/* Nav ---------------------------------------------------------------- */
+
+.sidebar__nav {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	overflow-y: auto;
+	overflow-x: hidden; /* prevent horizontal scrolling for the nav area */
+	min-width: 0; /* allow flex children to shrink and enable text-overflow */
+	padding: 8px 0;
+}
+
+/* Group -------------------------------------------------------------- */
+
+.sidebar__group {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.sidebar__group + .sidebar__group {
+	margin-top: 12px;
+}
+
+.sidebar__group-label {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--gray-a9);
+	padding: 4px 12px 2px;
+	user-select: none;
+}
+
+/* NavItem ------------------------------------------------------------ */
+
+/* NavItem – works for both <button> and <a> (NavLink) */
+
+a.sidebar__nav-item {
+	text-decoration: none;
+}
+
+.sidebar__nav-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 8px 12px;
+	border: none;
+	border-radius: var(--sidebar-item-radius);
+	background: transparent;
+	color: var(--gray-a11);
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background 120ms ease,
+		color 120ms ease;
+	text-align: left;
+	box-sizing: border-box;
+	min-width: 0; /* important for flex item truncation */
+}
+
+.sidebar__nav-item:hover {
+	background: var(--gray-a3);
+	color: var(--gray-12);
+}
+
+.sidebar__nav-item--active {
+	background: var(--accent-a3);
+	color: var(--accent-11);
+}
+
+.sidebar__nav-item--active:hover {
+	background: var(--accent-a4);
+}
+
+.sidebar__nav-item-label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap; /* keep label on one line and ellipsis when too long */
+}
+
+/* Icon container used for nav items and profile to keep icons stable */
+.sidebar__nav-icon {
+	width: 24px;
+	min-width: 24px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 24px;
+}
+
+/* Footer ------------------------------------------------------------- */
+
+.sidebar__footer {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-top: 8px;
+	border-top: 1px solid var(--sidebar-border);
+}
+
+/* Profile ------------------------------------------------------------ */
+
+.sidebar__profile {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 8px 12px;
+	border: none;
+	border-radius: var(--sidebar-item-radius);
+	background: transparent;
+	color: var(--gray-12);
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background 120ms ease;
+	text-align: left;
+}
+
+.sidebar__profile:hover {
+	background: var(--gray-a3);
+}
+
+.sidebar__profile-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Toggle ------------------------------------------------------------- */
+
+.sidebar__toggle {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+	padding: 8px 12px;
+	border: none;
+	border-radius: var(--sidebar-item-radius);
+	background: transparent;
+	color: var(--gray-a11);
+	cursor: pointer;
+	transition: background 120ms ease;
+}
+
+.sidebar__toggle:hover {
+	background: var(--gray-a3);
+}
+
+/* When collapsed: hide textual labels but keep icon alignment/spacing */
+.sidebar--collapsed .sidebar__nav-item-label,
+.sidebar--collapsed .sidebar__profile-name {
+	display: none;
+}
