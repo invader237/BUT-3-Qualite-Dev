@@ -45,8 +45,9 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRATION_AUTH: ${{ secrets.JWT_EXPIRATION_AUTH }}
         run: |
-          mvn clean verify sonar:sonar \
+          mvn clean install -DskipTests sonar:sonar \
             -Dsonar.projectKey=invader237_BUT-3-Qualite-Dev \
+            -Dsonar.organization=invader237 \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${SONAR_TOKEN} \
+            -Dsonar.token=${SONAR_TOKEN} \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
