@@ -46,6 +46,7 @@ jobs:
           JWT_EXPIRATION_AUTH: ${{ secrets.JWT_EXPIRATION_AUTH }}
         run: |
           mvn clean verify sonar:sonar \
+            -Dspring.profiles.active=dev
             -Dsonar.projectKey=invader237_BUT-3-Qualite-Dev \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${SONAR_TOKEN} \
