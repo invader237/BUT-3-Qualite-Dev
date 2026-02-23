@@ -15,4 +15,9 @@ export const userApi = {
 	getMe() {
 		return axiosInstance.get<UtilisateurDto>("/auth/login");
 	},
+
+	/** GET /utilisateurs/{userId} – retrieve a user by ID (manager only) */
+	getUtilisateur(userId: string) {
+		return axiosInstance.get<UtilisateurDto>(`/utilisateurs/${userId}`);
+	},
 };

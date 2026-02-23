@@ -1,7 +1,10 @@
 import { Flex, Text, Card, Switch } from "@radix-ui/themes";
 import { Settings } from "lucide-react";
+import { useTheme } from "@/theme";
 
 export function ParametresPage() {
+	const { appearance, toggle } = useTheme();
+
 	return (
 		<Flex direction="column" gap="4">
 			<Flex align="center" gap="2">
@@ -40,7 +43,7 @@ export function ParametresPage() {
 							<Text weight="medium">Mode sombre</Text>
 							<Text size="2" color="gray">Modifier l'apparence de l'application</Text>
 						</Flex>
-						<Switch />
+						<Switch checked={appearance === "dark"} onCheckedChange={toggle} />
 					</Flex>
 				</Card>
 			</Flex>

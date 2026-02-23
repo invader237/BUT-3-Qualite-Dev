@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c \"mvnw.cmd compile -q\")",
+      "Bash(cmd /c:*)",
+      "Bash(npx tsc:*)",
+      "Bash(./mvnw.cmd:*)"
+    ]
+  }
+}
