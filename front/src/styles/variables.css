@@ -24,3 +24,30 @@
   --sidebar-bg: var(--color-background);
   --sidebar-border: var(--gray-a5);
 }
+
+/* ------------------------------------------------------------------ */
+/*  Dark mode overrides                                                */
+/*  Radix UI <Theme appearance="dark"> adds .dark to its root element  */
+/* ------------------------------------------------------------------ */
+
+.dark {
+  --bg: #111113;
+  --text: #edeef0;
+  --color-background: var(--bg);
+  --color-text: var(--text);
+
+  /* gray scale (inverted for dark) */
+  --gray-a3: #1a1a1f;
+  --gray-a5: #27272c;
+  --gray-a9: #6b6b74;
+  --gray-a11: #b0b0b8;
+  --gray-12: #edeef0;
+
+  /* accents (dark variants) */
+  --accent-a3: #0d2847;
+  --accent-a4: #0f3058;
+  --accent-11: #70b8ff;
+
+  --sidebar-bg: var(--color-background);
+  --sidebar-border: var(--gray-a5);
+}
