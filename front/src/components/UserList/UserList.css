@@ -1,0 +1,58 @@
+/* ------------------------------------------------------------------ */
+/*  UserList – CSS variables & layout                                  */
+/* ------------------------------------------------------------------ */
+
+.user-list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Header ------------------------------------------------------------- */
+
+.user-list__header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Content ------------------------------------------------------------ */
+
+.user-list__content {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	max-width: 700px;
+}
+
+/* UserCard ----------------------------------------------------------- */
+
+.user-list__user-card {
+	transition: box-shadow 120ms ease;
+}
+
+.user-list__user-card:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Accounts list inside a user card ----------------------------------- */
+
+.user-list__accounts {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-left: 4px;
+}
+
+.user-list__account-item {
+	padding: 6px 8px;
+	border-radius: 6px;
+	background: var(--gray-a3);
+}
+
+/* Empty -------------------------------------------------------------- */
+
+.user-list__empty {
+	padding: 32px 0;
+	text-align: center;
+}
